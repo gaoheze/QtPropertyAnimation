@@ -107,7 +107,7 @@ void MainWindow::initData(int w,int h)
     // 版本切换数据 1
     M_ImageInfo *h_info;
 
-    int k = fileNames.size()%2;
+//    int k = fileNames.size()%2;
 
     for (int i=0; i < fileNames.size();i++) {
         // 计算等比公式
@@ -117,13 +117,13 @@ void MainWindow::initData(int w,int h)
 
         if (i <= 3) {
             h_info->Pos         = QPointF(w/16+i*100,h/4-i*20);
-            h_info->Size        = QSize(240+i*30,300+i*40);
+            h_info->Size        = QSize(510+i*30,250+i*40);
             h_info->ZValue      = 1+i;
             h_info->Opacity     = 1;
         }
         else if (i > 3 ) {
             h_info->Pos         = QPointF(w/16+i*100+50,h/4-(fileNames.size()-i-1)*20);
-            h_info->Size        = QSize(240+(fileNames.size()-i-1)*30,300+(fileNames.size()-i-1)*40);
+            h_info->Size        = QSize(510+(fileNames.size()-i-1)*30,250+(fileNames.size()-i-1)*40);
             h_info->ZValue      = fileNames.size() - i;
             h_info->Opacity     = 1;
         }
@@ -150,32 +150,23 @@ void MainWindow::initGraphicsScene()
 {
     // 设置场景大小
      _scene = new QGraphicsScene(QRect(0, 0, 876, 368), this);
-     M_PixmapInfo *pixmapInfo;
+     int index =0;
      foreach(auto hImage,_lstImage)
      {
-         GraphicsPixmapItem *pixmapItem = new GraphicsPixmapItem();
-         QString fileName               = hImage->FileName;
-         QString centerImg              = QString(":/images/%1.jpg").arg(fileName);
-         QPixmap pixmap                 = QPixmap(centerImg);
-         pixmapItem                     ->setOffset(hImage->Pos);
-         pixmapItem                     ->setOpacity(hImage->Opacity);
-//         pixmapItem                     ->setPixmap(pixmap);
-//         pixmapItem                     ->setPixmap(pixmap.scaled(hImage->Size));
-         pixmapItem                     ->setZValue(hImage->ZValue);
-         _scene                         ->addItem(pixmapItem);
-         pixmapInfo                     =   new M_PixmapInfo();
-         pixmapInfo                     ->PixMap=pixmap;
-         pixmapInfo                     ->PixMapItem= pixmapItem;
-//         _items << pixmapInfo;
-         QGraphicsSimpleTextItem *titleItem = new QGraphicsSimpleTextItem("titleItem111111111111111111111111111");
-         QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("textTtem2222222222222222222222222222222");
-         GraphicsItemGroup *itemGroup = new GraphicsItemGroup(pixmap,hImage,titleItem,textItem);
+         QString text1 = QString("国家体科所%1").arg(index);
+         QString text2 = QString("体科所主要任务是引领和推动\n中国体育科技事业发展%1").arg(index);
+//         QColor color = QColor(60, 188, 243);
+         QSize size = hImage->Size;
+         GraphicsItemGroup *itemGroup = new GraphicsItemGroup(size,
+                                                              text1,QPointF(0,43),49.5,
+                                                              text2,QPointF(62,123),30);
          itemGroup->setPos(hImage->Pos);
+         itemGroup->setSize(QSize(hImage->Size.width(),hImage->Size.height()));
          itemGroup->setOpacity(hImage->Opacity);
          itemGroup->setZValue(hImage->ZValue);
-
          _scene->addItem(itemGroup);
          _items.append(itemGroup);
+         index ++;
      }
 }
 void MainWindow::initAnimation()
@@ -183,11 +174,9 @@ void MainWindow::initAnimation()
     _animationGroup = new QParallelAnimationGroup();
     foreach (auto item , _items)
     {
-        QPropertyAnimation *animation = new QPropertyAnimation(item,"pos");
-        animation->setDuration(1000);
-        animation->setEasingCurve(QEasingCurve::OutQuad);
-        item->Animation = animation;
-        _animationGroup->addAnimation(animation);
+        _animationGroup->addAnimation(item->AnimationPos());
+
+        _animationGroup->addAnimation(item->AnimationSize());
     }
 }
 void MainWindow::start()
@@ -211,14 +200,20 @@ void MainWindow::play()
         auto image = _lstImage[index];
         auto item = _items[index];
 
-        item->setPos(image->Pos);
         item->setOpacity(image->Opacity);
         item->setZValue(image->ZValue);
-        item->PixmapItem()->setPixmap(item->Pixmap().scaled(image->Size));;
+        item->setSize(image->Size);
+
         QPointF pt =item->pos();
         QPointF pte(image->Pos);
-        item->Animation->setStartValue(pt);
-        item->Animation->setEndValue(pte);
+        item->AnimationPos()->setStartValue(pt);
+        item->AnimationPos()->setEndValue(pte);
+
+        QSize ss = item->size();
+        QSize se = image->Size;
+        item->AnimationSize()->setStartValue(ss);
+        item->AnimationSize()->setEndValue(se);
+
     }
       _isStart = true;
 }

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GraphicsItemGroup_t {
-    QByteArrayData data[2];
-    char stringdata0[22];
+    QByteArrayData data[3];
+    char stringdata0[27];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,11 @@ struct qt_meta_stringdata_GraphicsItemGroup_t {
 static const qt_meta_stringdata_GraphicsItemGroup_t qt_meta_stringdata_GraphicsItemGroup = {
     {
 QT_MOC_LITERAL(0, 0, 17), // "GraphicsItemGroup"
-QT_MOC_LITERAL(1, 18, 3) // "pos"
+QT_MOC_LITERAL(1, 18, 3), // "pos"
+QT_MOC_LITERAL(2, 22, 4) // "size"
 
     },
-    "GraphicsItemGroup\0pos"
+    "GraphicsItemGroup\0pos\0size"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,14 +47,15 @@ static const uint qt_meta_data_GraphicsItemGroup[] = {
        0,       // classname
        0,    0, // classinfo
        0,    0, // methods
-       1,   14, // properties
+       2,   14, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
  // properties: name, type, flags
-       1, QMetaType::QPointF, 0x00095001,
+       1, QMetaType::QPointF, 0x00095103,
+       2, QMetaType::QSize, 0x00095103,
 
        0        // eod
 };
@@ -68,9 +70,18 @@ void GraphicsItemGroup::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< QPointF*>(_v) = _t->pos(); break;
+        case 1: *reinterpret_cast< QSize*>(_v) = _t->size(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
+        auto *_t = static_cast<GraphicsItemGroup *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setPos(*reinterpret_cast< QPointF*>(_v)); break;
+        case 1: _t->setSize(*reinterpret_cast< QSize*>(_v)); break;
+        default: break;
+        }
     } else if (_c == QMetaObject::ResetProperty) {
     }
 #endif // QT_NO_PROPERTIES
@@ -115,17 +126,17 @@ int GraphicsItemGroup::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
    if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 1;
+        _id -= 2;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

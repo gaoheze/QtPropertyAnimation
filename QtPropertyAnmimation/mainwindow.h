@@ -26,7 +26,7 @@ private:
     Ui::MainWindow *ui;
     // m:n 集合
     QList<M_ImageInfo *> _lstImage = QList<M_ImageInfo *>(); // init m:n list
-//    QList<M_PixmapInfo *> _items = QList<M_PixmapInfo *>();  //
+
     QList<GraphicsItemGroup *> _items = QList<GraphicsItemGroup *>();  //
     GraphicsView *_view;
     QGraphicsScene  *_scene;
@@ -42,6 +42,7 @@ private:
     void play();
     void nextPlay();
     void prePlay();
+
 };
 
 #endif // MAINWINDOW_H

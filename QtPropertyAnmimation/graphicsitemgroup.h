@@ -6,31 +6,40 @@
 #include <graphicspixmapitem.h>
 #include <m_imageinfo.h>
 #include <QPropertyAnimation>
+#include <QTextBlockFormat>
+#include <QTextCursor>
 
 class GraphicsItemGroup:public QObject, public QGraphicsItemGroup
 {
     Q_OBJECT
-    Q_PROPERTY(QPointF pos READ pos)
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
+    Q_PROPERTY(QSize size READ size WRITE setSize)
 public:
-    GraphicsItemGroup(QGraphicsSimpleTextItem *titleItem,
-                      QGraphicsSimpleTextItem *remarkItem,
+    // 1行文字样式
+    GraphicsItemGroup(QColor color,
+                      QString text1,qreal x1,qreal y1,qreal fontSize,
                       QGraphicsItem *parent = nullptr);
-    GraphicsItemGroup(GraphicsPixmapItem *pixmapItem,
-                      QGraphicsSimpleTextItem *titleItem,
-                      QGraphicsSimpleTextItem *remarkItem,
+    // 2行文字样式
+    GraphicsItemGroup(QSize size,
+                      QString text1,QPointF pos1,double fontSize1,
+                      QString text2,QPointF pos2,double fontSize2,
                       QGraphicsItem *parent = nullptr);
-    GraphicsItemGroup(QPixmap pixmap,
-                      M_ImageInfo *hImage,
-                      QGraphicsSimpleTextItem *titleItem,
-                      QGraphicsSimpleTextItem *remarkItem,
+    // 2行文字 + 一张图片样式
+    GraphicsItemGroup(QColor color,
+                      QPixmap pixmap,
+                      QString text1,qreal x1,qreal y1,qreal fontSize1,
+                      QString text2,qreal x2,qreal y2,qreal fontSize2,
                       QGraphicsItem *parent = nullptr);
-    QPixmap Pixmap() const  {return _pixmap;}
-    GraphicsPixmapItem *PixmapItem() const {return _pixmapItem;}
-    QPropertyAnimation *Animation ;
-//    QPointF Pos() const {return this->pos();}
+    void setSize(const QSize &size);
+    QSize size() const {return  _size;}
+    QPropertyAnimation *AnimationPos() const {return _animationPos;}
+    QPropertyAnimation *AnimationSize() const {return _animationSize;}
+
 private:
-    QPixmap _pixmap;
-    GraphicsPixmapItem *_pixmapItem;
+    QGraphicsRectItem *_rectItem;
+    QPropertyAnimation *_animationPos;
+    QPropertyAnimation *_animationSize;
+    QSize _size;
 };
 
 #endif // GRAPHICSITEMGROUP_H
