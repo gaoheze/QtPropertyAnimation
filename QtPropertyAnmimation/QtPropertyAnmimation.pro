@@ -28,14 +28,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     graphicsview.cpp \
-    graphicspixmapitem.cpp
+    graphicspixmapitem.cpp \
+    graphicsitemgroup.cpp
 
 HEADERS += \
         mainwindow.h \
     graphicsview.h \
     m_imageinfo.h \
     m_pixmapinfo.h \
-    graphicspixmapitem.h
+    graphicspixmapitem.h \
+    graphicsitemgroup.h
 
 FORMS += \
         mainwindow.ui

@@ -166,16 +166,16 @@ void MainWindow::initGraphicsScene()
          pixmapInfo                     =   new M_PixmapInfo();
          pixmapInfo                     ->PixMap=pixmap;
          pixmapInfo                     ->PixMapItem= pixmapItem;
-         _items << pixmapInfo;
-//         QGraphicsSimpleTextItem *titleItem = new QGraphicsSimpleTextItem("titleItem111111111111111111111111111");
-//         QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("textTtem2222222222222222222222222222222");
-//         GraphicsItemGroup *itemGroup = new GraphicsItemGroup(pixmap,hImage,titleItem,textItem);
-//         itemGroup->setPos(hImage->Pos);
-//         itemGroup->setOpacity(hImage->Opacity);
-//         itemGroup->setZValue(hImage->ZValue);
+//         _items << pixmapInfo;
+         QGraphicsSimpleTextItem *titleItem = new QGraphicsSimpleTextItem("titleItem111111111111111111111111111");
+         QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("textTtem2222222222222222222222222222222");
+         GraphicsItemGroup *itemGroup = new GraphicsItemGroup(pixmap,hImage,titleItem,textItem);
+         itemGroup->setPos(hImage->Pos);
+         itemGroup->setOpacity(hImage->Opacity);
+         itemGroup->setZValue(hImage->ZValue);
 
-//         _scene->addItem(itemGroup);
-//         _items.append(itemGroup);
+         _scene->addItem(itemGroup);
+         _items.append(itemGroup);
      }
 }
 void MainWindow::initAnimation()
@@ -183,10 +183,10 @@ void MainWindow::initAnimation()
     _animationGroup = new QParallelAnimationGroup();
     foreach (auto item , _items)
     {
-        QPropertyAnimation *animation = new QPropertyAnimation(item->PixMapItem,"offset");
+        QPropertyAnimation *animation = new QPropertyAnimation(item,"pos");
         animation->setDuration(1000);
         animation->setEasingCurve(QEasingCurve::OutQuad);
-        item->animation = animation;
+        item->Animation = animation;
         _animationGroup->addAnimation(animation);
     }
 }
@@ -211,14 +211,14 @@ void MainWindow::play()
         auto image = _lstImage[index];
         auto item = _items[index];
 
-//        item->setPos(image->Pos);
-        item->PixMapItem->setOpacity(image->Opacity);
-        item->PixMapItem->setZValue(image->ZValue);
-        item->PixMapItem->setPixmap(item->PixMap.scaled(image->Size));;
-        QPointF pt =item->PixMapItem->offset();
+        item->setPos(image->Pos);
+        item->setOpacity(image->Opacity);
+        item->setZValue(image->ZValue);
+        item->PixmapItem()->setPixmap(item->Pixmap().scaled(image->Size));;
+        QPointF pt =item->pos();
         QPointF pte(image->Pos);
-        item->animation->setStartValue(pt);
-        item->animation->setEndValue(pte);
+        item->Animation->setStartValue(pt);
+        item->Animation->setEndValue(pte);
     }
       _isStart = true;
 }

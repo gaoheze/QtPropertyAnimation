@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QParallelAnimationGroup>
 #include <QTimer>
+#include <graphicsitemgroup.h>
 
 namespace Ui {
 class MainWindow;
@@ -25,8 +26,8 @@ private:
     Ui::MainWindow *ui;
     // m:n 集合
     QList<M_ImageInfo *> _lstImage = QList<M_ImageInfo *>(); // init m:n list
-    QList<M_PixmapInfo *> _items = QList<M_PixmapInfo *>();  //
-//    QList<GraphicsItemGroup *> _items = QList<GraphicsItemGroup *>();  //
+//    QList<M_PixmapInfo *> _items = QList<M_PixmapInfo *>();  //
+    QList<GraphicsItemGroup *> _items = QList<GraphicsItemGroup *>();  //
     GraphicsView *_view;
     QGraphicsScene  *_scene;
     QParallelAnimationGroup *_animationGroup;
