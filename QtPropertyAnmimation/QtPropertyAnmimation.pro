@@ -26,10 +26,16 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    graphicsview.cpp \
+    graphicspixmapitem.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    graphicsview.h \
+    m_imageinfo.h \
+    m_pixmapinfo.h \
+    graphicspixmapitem.h
 
 FORMS += \
         mainwindow.ui
@@ -38,3 +44,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
