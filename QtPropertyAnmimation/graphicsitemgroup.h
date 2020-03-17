@@ -25,10 +25,9 @@ public:
                       QString text2,QPointF pos2,double fontSize2,
                       QGraphicsItem *parent = nullptr);
     // 2行文字 + 一张图片样式
-    GraphicsItemGroup(QColor color,
-                      QPixmap pixmap,
-                      QString text1,qreal x1,qreal y1,qreal fontSize1,
-                      QString text2,qreal x2,qreal y2,qreal fontSize2,
+    GraphicsItemGroup(QPixmap pixmap,QSize size,
+                      QString text1,QPointF pos1,double fontSize1,
+                      QString text2,QPointF pos2,double fontSize2,
                       QGraphicsItem *parent = nullptr);
     void setSize(const QSize &size);
     QSize size() const {return  _size;}

@@ -27,6 +27,7 @@ GraphicsItemGroup::GraphicsItemGroup(QSize size,
     _size           = size;
     _rectItem       = new QGraphicsRectItem(0,0,size.width(),size.height());
     _rectItem       ->setBrush(QColor(60, 188, 243));//QBrush(color)
+    _rectItem       ->setPen(QPen(Qt::blue,4,Qt::SolidLine));
     this            ->addToGroup(_rectItem);
     QTextBlockFormat *format;
     QGraphicsTextItem *textItem;
@@ -70,38 +71,60 @@ GraphicsItemGroup::GraphicsItemGroup(QSize size,
     _animationSize->setEasingCurve(QEasingCurve::OutQuad);
 }
 // 2行文字+1张图片样式
-GraphicsItemGroup::GraphicsItemGroup(QColor color,
-                                     QPixmap pixmap,
-                                     QString text1,qreal x1,qreal y1,qreal fontSize1,
-                                     QString text2,qreal x2,qreal y2,qreal fontSize2,
+GraphicsItemGroup::GraphicsItemGroup(QPixmap pixmap,QSize size,
+                                     QString text1,QPointF pos1,double fontSize1,
+                                     QString text2,QPointF pos2,double fontSize2,
                                      QGraphicsItem *parent):QGraphicsItemGroup (parent)
 {
-    _rectItem       = new QGraphicsRectItem();
-    _rectItem       ->setBrush(QBrush(color));//QColor(60, 188, 243)
-
+    _size           = size;
+    _rectItem       = new QGraphicsRectItem(0,0,size.width(),size.height());
+    _rectItem       ->setBrush(QColor(60, 188, 243));//QBrush(color)
+    _rectItem       ->setPen(QPen(Qt::blue,4,Qt::SolidLine));
     this            ->addToGroup(_rectItem);
+    GraphicsPixmapItem *pix = new GraphicsPixmapItem();
+    pix->setOffset(51,48);
+    pix->setPixmap(pixmap.scaled(122,123));
+    this->addToGroup(pix);
+    QTextBlockFormat *format;
     QGraphicsTextItem *textItem;
+    QTextCursor cursor;
     textItem        = new QGraphicsTextItem(text1);
-    textItem        ->setPos(x1,y1);
+    textItem        ->setPos(pos1);
     textItem        ->setFont(QFont("Source Han Sans CN",fontSize1));
     textItem        ->setDefaultTextColor(QColor(158, 211, 236));
     textItem        ->setZValue(2);
-    this            ->addToGroup(textItem);
-    textItem        = new QGraphicsTextItem(text2);
-    textItem        ->setPos(x2,y2);
-    textItem        ->setFont(QFont("Source Han Sans CN",fontSize2));
-    textItem        ->setDefaultTextColor(QColor(123, 172, 214));
-    textItem        ->setZValue(2);
-    textItem        ->setTextWidth(textItem->boundingRect().width());
-
-    QTextBlockFormat format;
-    format.setAlignment(Qt::AlignLeft);
-    QTextCursor cursor = textItem->textCursor();
+    textItem        ->setTextWidth(_rectItem->boundingRect().width());
+    format          = new QTextBlockFormat();
+    format          ->setAlignment(Qt::AlignCenter);
+    cursor = textItem->textCursor();
     cursor.select(QTextCursor::Document);
-    cursor.mergeBlockFormat(format);
+    cursor.mergeBlockFormat(*format);
     cursor.clearSelection();
     textItem        ->setTextCursor(cursor);
     this            ->addToGroup(textItem);
+
+    textItem        = new QGraphicsTextItem(text2);
+    textItem        ->setPos(pos2);
+    textItem        ->setFont(QFont("Source Han Sans CN",fontSize2));
+    textItem        ->setDefaultTextColor(QColor(123, 172, 214));
+    textItem        ->setZValue(2);
+    textItem        ->setTextWidth(_rectItem->boundingRect().width());
+
+    format = new QTextBlockFormat();
+    format->setAlignment(Qt::AlignLeft);
+    cursor = textItem->textCursor();
+    cursor.select(QTextCursor::Document);
+    cursor.mergeBlockFormat(*format);
+    cursor.clearSelection();
+    textItem        ->setTextCursor(cursor);
+    this            ->addToGroup(textItem);
+
+    _animationPos = new QPropertyAnimation(this,"pos");
+    _animationPos->setDuration(1000);
+    _animationPos->setEasingCurve(QEasingCurve::OutQuad);
+    _animationSize = new QPropertyAnimation(this,"size");
+    _animationSize->setDuration(1000);
+    _animationSize->setEasingCurve(QEasingCurve::OutQuad);
 }
 
 void GraphicsItemGroup::setSize(const QSize &size)

@@ -12,6 +12,7 @@ public:
     QSize Size;
     qreal Opacity;
     QString FileName;
-    QList<M_ImageInfo> *imagesInfo;
+    QString TextTitle;
+    QString TextRemark;
 };
 #endif // M_IMAGEINFO_H

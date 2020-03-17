@@ -3,8 +3,10 @@ release/mainwindow.o
 release/graphicsview.o
 release/graphicspixmapitem.o
 release/graphicsitemgroup.o
+release/graphicsrectitem.o
 release/qrc_resource.o
 release/moc_mainwindow.o
 release/moc_graphicsview.o
 release/moc_graphicspixmapitem.o
 release/moc_graphicsitemgroup.o
+release/moc_graphicsrectitem.o

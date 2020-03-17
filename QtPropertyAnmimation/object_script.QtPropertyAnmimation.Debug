@@ -3,8 +3,10 @@ debug/mainwindow.o
 debug/graphicsview.o
 debug/graphicspixmapitem.o
 debug/graphicsitemgroup.o
+debug/graphicsrectitem.o
 debug/qrc_resource.o
 debug/moc_mainwindow.o
 debug/moc_graphicsview.o
 debug/moc_graphicspixmapitem.o
 debug/moc_graphicsitemgroup.o
+debug/moc_graphicsrectitem.o

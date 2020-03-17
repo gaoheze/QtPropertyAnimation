@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <m_imageinfo.h>
-#include <m_pixmapinfo.h>
+#include <m_graphicsitemgroup.h>
 #include <graphicsview.h>
 #include <QGraphicsScene>
 #include <QParallelAnimationGroup>
@@ -25,9 +25,10 @@ public:
 private:
     Ui::MainWindow *ui;
     // m:n 集合
-    QList<M_ImageInfo *> _lstImage = QList<M_ImageInfo *>(); // init m:n list
-
-    QList<GraphicsItemGroup *> _items = QList<GraphicsItemGroup *>();  //
+//    QList<QPair<M_ImageInfo,QList<M_ImageInfo>>> _lstImage; // init m:n list
+    QList<M_ImageInfo *> _lstImage;
+//    QList<QPair<GraphicsItemGroup *,QList<GraphicsItemGroup *>>> _items;
+    QList<GraphicsItemGroup *> _items;
     GraphicsView *_view;
     QGraphicsScene  *_scene;
     QParallelAnimationGroup *_animationGroup;
