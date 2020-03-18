@@ -25,9 +25,7 @@ public:
 private:
     Ui::MainWindow *ui;
     // m:n 集合
-//    QList<QPair<M_ImageInfo,QList<M_ImageInfo>>> _lstImage; // init m:n list
-    QList<M_ImageInfo *> _lstImage;
-//    QList<QPair<GraphicsItemGroup *,QList<GraphicsItemGroup *>>> _items;
+    QList<M_ImageInfo *> _lstImage;// init m:n list
     QList<GraphicsItemGroup *> _items;
     GraphicsView *_view;
     QGraphicsScene  *_scene;
@@ -43,7 +41,18 @@ private:
     void play();
     void nextPlay();
     void prePlay();
-
+    //2 v
+    QList<M_ImageInfo *> _lstImageV = QList<M_ImageInfo *>();
+    QList<GraphicsItemGroup *> _itemsV;
+    QParallelAnimationGroup *_animationGroupV;
+    QTimer *_timerV;
+    bool _isStartV;
+    void iniImageInfoV();
+    void initAnimationV();
+    void startV();
+    void playV();
+    void nextPlayV();
+    void prePlayV();
 };
 
 #endif // MAINWINDOW_H

@@ -33,8 +33,14 @@ public:
     QSize size() const {return  _size;}
     QPropertyAnimation *AnimationPos() const {return _animationPos;}
     QPropertyAnimation *AnimationSize() const {return _animationSize;}
-
+    void setText(const QString text);
+    QString Text() const {return _textTitleItem->toHtml();}
+    void setRemark(const QString text);
 private:
+    QPixmap _pixmap;
+    GraphicsPixmapItem *_pixmapItem;
+    QGraphicsTextItem *_textTitleItem;
+    QGraphicsTextItem *_textRemarkItem;
     QGraphicsRectItem *_rectItem;
     QPropertyAnimation *_animationPos;
     QPropertyAnimation *_animationSize;
